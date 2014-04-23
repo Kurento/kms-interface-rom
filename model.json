@@ -793,6 +793,19 @@
           ]
         }
       ],
+      "methods": [
+        {
+          "name": "setPlateWidthPercentage",
+          "doc": "Configure the average width of the license plates in the image",
+          "params": [
+            {
+              "name": "plateWidth",
+              "doc": "average width in pixels",
+              "type": "int"
+            }
+          ]
+        }
+      ],
       "events": [
         "PlateDetected"
       ]
