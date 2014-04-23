@@ -796,11 +796,11 @@
       "methods": [
         {
           "name": "setPlateWidthPercentage",
-          "doc": "Configure the average width of the license plates in the image",
+          "doc": "Configures the average width of the license plates in the image represented as an image percentage.",
           "params": [
             {
-              "name": "plateWidth",
-              "doc": "average width in pixels",
+              "name": "plateWidthPercentage",
+              "doc": "average width of the license plates represented as an image percentage [0, 100].",
               "type": "int"
             }
           ]
