@@ -800,8 +800,8 @@
           "params": [
             {
               "name": "plateWidthPercentage",
-              "doc": "average width of the license plates represented as an image percentage [0, 100].",
-              "type": "int"
+              "doc": "average width of the license plates represented as an image percentage [0..1].",
+              "type": "float"
             }
           ]
         }
