@@ -23,25 +23,26 @@ endif(EXISTS "${CMAKE_SOURCE_DIR}/.git")
 
 set(GEN_FILES_DIR ${CMAKE_BINARY_DIR}/rom-cpp)
 set(MODEL ${CMAKE_CURRENT_SOURCE_DIR}/model.json)
-set(TEMPLATES ${CMAKE_CURRENT_SOURCE_DIR}/templates/cpp)
+set(TEMPLATES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/templates/cpp)
 set(GENERATION_MARK ${CMAKE_CURRENT_BINARY_DIR}/code_generated)
 
-execute_process(COMMAND ${ROM_PROCESSOR_EXEC} -c "${GEN_FILES_DIR}" -r ${MODEL} -t ${TEMPLATES})
+execute_process(COMMAND ${ROM_PROCESSOR_EXEC} -c "${GEN_FILES_DIR}" -r ${MODEL} -t ${TEMPLATES_DIR})
 execute_process(COMMAND touch ${GENERATION_MARK})
 
 file(GLOB_RECURSE GENERATED_SOURCES ${GEN_FILES_DIR}/*cpp ${GEN_FILES_DIR}/*hpp)
+file(GLOB_RECURSE TEMPLATES ${TEMPLATES_DIR}/*ftl)
 
 add_custom_target(generate ALL DEPENDS ${GENERATION_MARK})
 
 ADD_CUSTOM_COMMAND(
         COMMENT         "Generating source from: model.json"
 
-        DEPENDS         ${MODEL}
+        DEPENDS         ${MODEL} ${TEMPLATES}
 
         OUTPUT          ${GENERATION_MARK}
 
         COMMAND         ${ROM_PROCESSOR_EXEC}
-        ARGS            -c "${GEN_FILES_DIR}" -r ${MODEL} -t ${TEMPLATES}
+        ARGS            -c "${GEN_FILES_DIR}" -r ${MODEL} -t ${TEMPLATES_DIR}
 
         COMMAND         touch
         ARGS            ${GENERATION_MARK}
