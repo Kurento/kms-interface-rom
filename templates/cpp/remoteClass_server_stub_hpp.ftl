@@ -44,6 +44,10 @@ public:
       <#lt><#list method.params as param>${getCppObjectType(param.type)} ${param.name}<#if param_has_next>, </#if></#list>) {throw "Not implemented";};
   </#list>
 
+  virtual std::string getType () {
+    return "${remoteClass.name}";
+  }
+
   virtual std::string connect(const std::string &eventType, std::shared_ptr<EventHandler> handler);
   <#list remoteClass.events as event>
     <#if event_index = 0 >
