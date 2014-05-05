@@ -1250,7 +1250,7 @@
         },
         {
           "name": "id",
-          "doc": "identifier of the region of interest",
+          "doc": "identifier of the region of interest. The string used for the id must begin \n with a letter followed by an alphanumeric character included (/-_.:+)",
           "type": "String"
         }
       ],
