@@ -1241,7 +1241,7 @@
         {
           "name": "points",
           "doc": "list of points delimiting the region of interest",
-          "type": "Point[]"
+          "type": "RelativePoint[]"
         },
         {
           "name": "regionOfInterestConfig",
@@ -1273,6 +1273,23 @@
       ],
       "name": "Point",
       "doc": "Point in a physical screen, coordinates are in pixels with X left to right and Y top to down."
+    },
+    {
+      "typeFormat": "REGISTER",
+      "properties": [
+        {
+          "name": "x",
+          "doc": "Percentage relative to the image width to calculate the X coordinate of the point [0..1]",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "doc": "Percentage relative to the image height to calculate the Y coordinate of the point [0..1]",
+          "type": "float"
+        }
+      ],
+      "name": "RelativePoint",
+      "doc": "Relative points in a physical screen, values are a percentage relative to the image dimensions. X left to right and Y top to down."
     }
   ],
   "events": [
