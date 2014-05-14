@@ -1,5 +1,38 @@
 cmake_minimum_required(VERSION 2.8)
 
+set (PROJECT_NAME "kms-interface-rom")
+
+project (${PROJECT_NAME})
+
+find_program(GIT_EXEC git)
+
+SET (TAG "${PROJECT_NAME}-")
+
+execute_process(COMMAND ${GIT_EXEC} rev-parse --git-dir OUTPUT_VARIABLE GIT_DIR
+                OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+if(EXISTS ${GIT_EXEC} AND EXISTS "${GIT_DIR}")
+  execute_process(COMMAND ${GIT_EXEC} submodule init WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  execute_process(COMMAND ${GIT_EXEC} submodule update WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  execute_process(COMMAND ${GIT_EXEC} remote update WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  execute_process(COMMAND ${GIT_EXEC} describe --abbrev=6 --tags --dirty --always --match "${TAG}*"
+                  OUTPUT_VARIABLE PROJECT_VERSION
+                  OUTPUT_STRIP_TRAILING_WHITESPACE
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  string(REGEX REPLACE "^${TAG}(.*)" "\\1" PROJECT_VERSION ${PROJECT_VERSION})
+  if (NOT EXISTS ${GIT_DIR}/hooks/pre-commit)
+    execute_process(COMMAND ln -s ${CMAKE_CURRENT_SOURCE_DIR}/hooks/pre-commit.hook
+                    "${GIT_DIR}/hooks/pre-commit")
+  endif ()
+else()
+  set(PROJECT_MAJOR_VERSION 4)
+  set(PROJECT_MINOR_VERSION 2)
+  set(PROJECT_PATCH_VERSION 6-dev)
+  set(PROJECT_VERSION
+      ${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${PROJECT_PATCH_VERSION})
+endif()
+
+
 find_program(ROM_PROCESSOR_EXEC ktool-rom-processor)
 
 IF(NOT EXISTS ${ROM_PROCESSOR_EXEC})
@@ -7,19 +40,6 @@ IF(NOT EXISTS ${ROM_PROCESSOR_EXEC})
 ENDIF(NOT EXISTS ${ROM_PROCESSOR_EXEC})
 
 MESSAGE(STATUS "Rom processor found: ${ROM_PROCESSOR_EXEC}")
-
-if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-	execute_process(COMMAND git describe --abbrev=6 --tags --dirty --always
-			OUTPUT_VARIABLE KMS_INTERFACE_VERSION
-			OUTPUT_STRIP_TRAILING_WHITESPACE)
-	string(REGEX REPLACE "^kms-interface-rom-(.*)" "\\1" KMS_INTERFACE_VERSION ${KMS_INTERFACE_VERSION})
-else(EXISTS "${CMAKE_SOURCE_DIR}/.git")
-	set(KMS_INTERFACE_MAJOR_VERSION 4)
-	set(KMS_INTERFACE_MINOR_VERSION 2)
-	set(KMS_INTERFACE_PATCH_VERSION 6-dev)
-	set(KMS_INTERFACE_VERSION
-		${KMS_INTERFACE_MAJOR_VERSION}.${KMS_INTERFACE_MINOR_VERSION}.${KMS_INTERFACE_PATCH_VERSION})
-endif(EXISTS "${CMAKE_SOURCE_DIR}/.git")
 
 set(GEN_FILES_DIR ${CMAKE_BINARY_DIR}/rom-cpp)
 set(MODEL ${CMAKE_CURRENT_SOURCE_DIR}/model.json)
