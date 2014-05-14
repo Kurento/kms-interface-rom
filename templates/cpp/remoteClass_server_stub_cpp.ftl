@@ -235,7 +235,6 @@ ${remoteClass.name}::connect(const std::string &eventType, std::shared_ptr<Event
       s.Serialize ("data", event);
       s.Serialize ("object", this);
       s.JsonValue["type"] = "${event.name}";
-      s.JsonValue["subscription"] = handler->getId();
       handler->sendEvent(s.JsonValue);
     });
     handler->setConnection (conn);
