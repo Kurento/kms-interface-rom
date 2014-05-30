@@ -20,10 +20,6 @@ if(EXISTS ${GIT_EXEC} AND EXISTS "${GIT_DIR}")
                   OUTPUT_STRIP_TRAILING_WHITESPACE
                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
   string(REGEX REPLACE "^${TAG}(.*)" "\\1" PROJECT_VERSION ${PROJECT_VERSION})
-  if (NOT EXISTS ${GIT_DIR}/hooks/pre-commit)
-    execute_process(COMMAND ln -s ${CMAKE_CURRENT_SOURCE_DIR}/hooks/pre-commit.hook
-                    "${GIT_DIR}/hooks/pre-commit")
-  endif ()
 else()
   set(PROJECT_MAJOR_VERSION 4)
   set(PROJECT_MINOR_VERSION 2)
