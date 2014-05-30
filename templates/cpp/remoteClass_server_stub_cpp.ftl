@@ -93,6 +93,7 @@ ${remoteClass.name}::Invoker::invoke (std::shared_ptr<MediaObject> obj,
 
     <#list method.params as param>
     <#assign json_method = "">
+    <#assign json_value_type = "">
     <#assign type_description = "">
     if (!params.isMember ("${param.name}")) {
       <#if (param.defaultValue)??>
@@ -127,34 +128,42 @@ ${remoteClass.name}::Invoker::invoke (std::shared_ptr<MediaObject> obj,
       aux = params["${param.name}"];
       <#if param.type.isList()>
         <#assign json_method = "List">
+        <#assign json_value_type = "arrayValue">
         <#assign type_description = "list">
       <#elseif param.type.name = "String">
         <#assign json_method = "String">
+        <#assign json_value_type = "stringValue">
         <#assign type_description = "string">
       <#elseif param.type.name = "int">
         <#assign json_method = "Int">
+        <#assign json_value_type = "intValue">
         <#assign type_description = "integer">
       <#elseif param.type.name = "boolean">
         <#assign json_method = "Bool">
+        <#assign json_value_type = "booleanValue">
         <#assign type_description = "boolean">
       <#elseif param.type.name = "double" || param.type.name = "float">
         <#assign json_method = "Double">
+        <#assign json_value_type = "realValue">
         <#assign type_description = "double">
       <#elseif model.complexTypes?seq_contains(param.type.type) >
         <#if param.type.type.typeFormat == "ENUM">
           <#assign json_method = "String">
+          <#assign json_value_type = "stringValue">
           <#assign type_description = "string">
         <#else>
           <#assign json_method = "Object">
+          <#assign json_value_type = "objectValue">
           <#assign type_description = "object">
         </#if>
       <#elseif model.remoteClasses?seq_contains(param.type.type) >
         <#assign json_method = "String">
+        <#assign json_value_type = "stringValue">
         <#assign type_description = "string">
       </#if>
-      <#if json_method != "" && type_description != "">
+      <#if json_method != "" && type_description != "" && json_value_type != "">
 
-      if (!aux.is${json_method} ()) {
+      if (!aux.isConvertibleTo (Json::ValueType::${json_value_type})) {
         /* param '${param.name}' has invalid type value, raise exception */
         JsonRpc::CallException e (JsonRpc::ErrorCode::SERVER_ERROR_INIT,
                                 "'${param.name}' parameter should be a ${type_description}");

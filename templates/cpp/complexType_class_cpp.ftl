@@ -18,7 +18,7 @@ ${complexType.name}::${complexType.name} (const Json::Value &value) {
   Json::Value aux;
 
   <#list complexType.properties as property>
-  <#assign json_method = "">
+  <#assign json_value_type = "">
   <#assign type_description = "">
   if (value.isMember ("${property.name}")) {
     <#if model.remoteClasses?seq_contains(property.type.type) >
@@ -27,30 +27,30 @@ ${complexType.name}::${complexType.name} (const Json::Value &value) {
     </#if>
     aux = value["${property.name}"];
     <#if property.type.isList()>
-      <#assign json_method = "Array">
+      <#assign json_value_type = "arrayValue">
       <#assign type_description = "array">
     <#elseif property.type.name = "String">
-      <#assign json_method = "String">
+      <#assign json_value_type = "stringValue">
       <#assign type_description = "string">
     <#elseif property.type.name = "int">
-      <#assign json_method = "Int">
+      <#assign json_value_type = "intValue">
       <#assign type_description = "integer">
     <#elseif property.type.name = "boolean">
-      <#assign json_method = "Bool">
+      <#assign json_value_type = "booleanValue">
       <#assign type_description = "boolean">
     <#elseif property.type.name = "double" || property.type.name = "float">
-      <#assign json_method = "Double">
+      <#assign json_value_type = "realValue">
       <#assign type_description = "double">
     <#elseif model.complexTypes?seq_contains(property.type.type) >
-      <#assign json_method = "String">
+      <#assign json_value_type = "stringValue">
       <#assign type_description = "string">
     <#elseif model.remoteClasses?seq_contains(property.type.type) >
-      <#assign json_method = "String">
+      <#assign json_value_type = "stringValue">
       <#assign type_description = "string">
     </#if>
-    <#if json_method != "" && type_description != "">
+    <#if json_value_type != "" && type_description != "">
 
-    if (!aux.is${json_method} ()) {
+    if (!aux.isConvertibleTo (Json::ValueType::${json_value_type})) {
       /* param '${property.name}' has invalid type value, raise exception */
       JsonRpc::CallException e (JsonRpc::ErrorCode::SERVER_ERROR_INIT,
                                 "'${property.name}' parameter should be a ${type_description}");
