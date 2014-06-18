@@ -9,7 +9,7 @@ ${complexType.name}.cpp
 </#if>
 </#list>
 #include "${complexType.name}.hpp"
-#include <JsonSerializer.hpp>
+#include <jsonrpc/JsonSerializer.hpp>
 
 namespace kurento {
 
@@ -80,8 +80,6 @@ ${complexType.name}::${complexType.name} (const Json::Value &value) {
 }
 </#if>
 
-} /* kurento */
-
 void
 Serialize(std::shared_ptr<kurento::${complexType.name}>& object, JsonSerializer& s)
 {
@@ -118,3 +116,5 @@ Serialize(std::shared_ptr<kurento::${complexType.name}>& object, JsonSerializer&
   }
 </#if>
 }
+
+} /* kurento */

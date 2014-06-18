@@ -5,29 +5,25 @@ ${event.name}.hpp
 #define __${camelToUnderscore(event.name)}_HPP__
 
 #include <jsoncpp/json/json.h>
-#include <JsonRpcException.hpp>
+#include <jsonrpc/JsonRpcException.hpp>
 #include <memory>
 
 <#if event.extends??>
 #include "${event.extends.name}.hpp"
 </#if>
 
-class JsonSerializer;
-
 namespace kurento {
+class JsonSerializer;
 class ${event.name};
 <#list event.properties as property>
-<#if model.remoteClasses?seq_contains(property.type.type) || 
-  model.complexTypes?seq_contains(property.type.type) || 
+<#if model.remoteClasses?seq_contains(property.type.type) ||
+  model.complexTypes?seq_contains(property.type.type) ||
   model.events?seq_contains(property.type.type)>
 class ${property.type.name};
 </#if>
 </#list>
-} /* kurento */
 
 void Serialize(kurento::${event.name}& event, JsonSerializer& s);
-
-namespace kurento {
 
 class ${event.name}<#if event.extends??> : public virtual ${event.extends.name}</#if>
 {
@@ -103,7 +99,7 @@ private:
   </#if>
   </#list>
 
-  friend void ::Serialize(${event.name}& event, JsonSerializer& s);
+  friend void Serialize(${event.name}& event, JsonSerializer& s);
 };
 
 } /* kurento */

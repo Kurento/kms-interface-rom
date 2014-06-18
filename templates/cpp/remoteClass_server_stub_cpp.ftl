@@ -7,7 +7,7 @@ ${remoteClass.name}.cpp
 #include "${dependency.name}.hpp"
 </#list>
 #include "${remoteClass.name}.hpp"
-#include <JsonSerializer.hpp>
+#include <jsonrpc/JsonSerializer.hpp>
 
 namespace kurento {
 
@@ -257,8 +257,6 @@ ${remoteClass.name}::connect(const std::string &eventType, std::shared_ptr<Event
 </#if>
 }
 
-} /* kurento */
-
 <#if (remoteClass.extends)??>
 void
 Serialize(std::shared_ptr<kurento::${remoteClass.name}> &object, JsonSerializer &serializer)
@@ -290,4 +288,6 @@ Serialize(kurento::${remoteClass.name} &object, JsonSerializer &serializer)
   } catch (std::bad_cast) {
   }
 }
+
 </#if>
+} /* kurento */

@@ -5,18 +5,15 @@ ${complexType.name}.hpp
 #define __${camelToUnderscore(complexType.name)}_HPP__
 
 #include <jsoncpp/json/json.h>
-#include <JsonRpcException.hpp>
+#include <jsonrpc/JsonRpcException.hpp>
 #include <memory>
 
-class JsonSerializer;
-
 namespace kurento {
+class JsonSerializer;
 class ${complexType.name};
-} /*kurento */
 
 void Serialize(std::shared_ptr<kurento::${complexType.name}>& object, JsonSerializer& s);
 
-namespace kurento {
 <#list complexType.getChildren() as dependency>
 <#if childs??>
 
@@ -128,7 +125,7 @@ private:
   ${complexType.name}() {};
   </#if>
 
-  friend void ::Serialize(std::shared_ptr<${complexType.name}>& object, JsonSerializer& s);
+  friend void Serialize(std::shared_ptr<${complexType.name}>& object, JsonSerializer& s);
 };
 
 } /* kurento */
