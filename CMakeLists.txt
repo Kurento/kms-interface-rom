@@ -2,31 +2,14 @@ cmake_minimum_required(VERSION 2.8)
 
 set (PROJECT_NAME "kms-interface-rom")
 
-project (${PROJECT_NAME})
+project ("kms-interface-rom")
 
-find_program(GIT_EXEC git)
+message (STATUS "If Kurento helpers is not found, you may install kms-cmake-utils package")
+find_package(KurentoHelpers REQUIRED)
 
-SET (TAG "${PROJECT_NAME}-")
+include (KurentoGitHelpers)
 
-execute_process(COMMAND ${GIT_EXEC} rev-parse --git-dir OUTPUT_VARIABLE GIT_DIR
-                OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-if(EXISTS ${GIT_EXEC} AND EXISTS "${GIT_DIR}")
-  execute_process(COMMAND ${GIT_EXEC} submodule init WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-  execute_process(COMMAND ${GIT_EXEC} submodule update WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-  execute_process(COMMAND ${GIT_EXEC} remote update WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-  execute_process(COMMAND ${GIT_EXEC} describe --abbrev=6 --tags --dirty --always --match "${TAG}*"
-                  OUTPUT_VARIABLE PROJECT_VERSION
-                  OUTPUT_STRIP_TRAILING_WHITESPACE
-                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-  string(REGEX REPLACE "^${TAG}(.*)" "\\1" PROJECT_VERSION ${PROJECT_VERSION})
-else()
-  set(PROJECT_MAJOR_VERSION 4)
-  set(PROJECT_MINOR_VERSION 3)
-  set(PROJECT_PATCH_VERSION 1-dev)
-  set(PROJECT_VERSION
-      ${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${PROJECT_PATCH_VERSION})
-endif()
+get_git_version (PROJECT_VERSION 4.3.1-dev)
 
 
 find_program(ROM_PROCESSOR_EXEC ktool-rom-processor)
