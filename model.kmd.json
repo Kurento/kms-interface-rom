@@ -1,10 +1,12 @@
 {
+  "name": "kurento-media-server",
+  "version": "4.3.5-dev",
   "remoteClasses": [
     {
       "name": "PlayerEndpoint",
       "extends": "UriEndpoint",
       "doc": "Retrieves content from seekable sources in reliable\nmode (does not discard media information) and inject \nthem into :term:`KMS`. It\ncontains one :rom:cls:`MediaSource` for each media type detected.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a PlayerEndpoint",
           "params": [
@@ -26,8 +28,7 @@
               "defaultValue": false
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "play",
@@ -71,7 +72,7 @@
       "name": "HttpGetEndpoint",
       "extends": "HttpEndpoint",
       "doc": "An ``HttpGetEndpoint`` contains SOURCE pads for AUDIO and VIDEO, delivering media using HTML5 pseudo-streaming mechanism.\n\n   This type of endpoint provide unidirectional communications. Its :rom:cls:`MediaSink` is associated with the HTTP GET method",
-      "constructors": [
+      "constructor":
         {
           "doc": "Builder for the :rom:cls:`HttpGetEndpoint`.",
           "params": [
@@ -103,13 +104,12 @@
             }
           ]
         }
-      ]
     },
     {
       "name": "WebRtcEndpoint",
       "extends": "SdpEndpoint",
       "doc": "WebRtcEndpoint interface. This type of ``Endpoint`` offers media streaming using WebRTC.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Builder for the :rom:cls:`WebRtcEndpoint`",
           "params": [
@@ -120,7 +120,6 @@
             }
           ]
         }
-      ]
     },
     {
       "name": "SessionEndpoint",
@@ -142,7 +141,7 @@
       "name": "ZBarFilter",
       "extends": "Filter",
       "doc": "This filter detects :term:`QR` codes in a video feed. When a code is found, the filter raises a :rom:evnt:`CodeFound` event.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Builder for the :rom:cls:`ZBarFilter`.",
           "params": [
@@ -152,8 +151,7 @@
               "type": "MediaPipeline"
             }
           ]
-        }
-      ],
+        },
       "events": [
         "CodeFound"
       ]
@@ -174,8 +172,8 @@
       "name": "HubPort",
       "extends": "MediaElement",
       "doc": "This :rom:cls:`MediaElement` specifies a connection with a :rom:cls:`Hub`",
-      "constructors": [
-        {
+      "constructor":
+      {
           "doc": "Creates a :rom:cls:`HubPort` for the given :rom:cls:`Hub`",
           "params": [
             {
@@ -185,13 +183,12 @@
             }
           ]
         }
-      ]
     },
     {
       "name": "PointerDetectorAdvFilter",
       "extends": "Filter",
       "doc": "This type of :rom:cls:`Filter` detects UI pointers in a video feed.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Builder for the :rom:cls:`PointerDetectorAdvFilter`.",
           "params": [
@@ -212,8 +209,7 @@
               "optional": true
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "addWindow",
@@ -284,7 +280,7 @@
       "name": "HttpPostEndpoint",
       "extends": "HttpEndpoint",
       "doc": "An :rom:cls:`HttpPostEndpoint` contains SINK pads for AUDIO and VIDEO, which provide access to an HTTP file upload function\n\n   This type of endpoint provide unidirectional communications. Its :rom:cls:`MediaSources <MediaSource>` are accessed through the :term:`HTTP` POST method.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Builder for the :rom:cls:`HttpPostEndpoint`.",
           "params": [
@@ -308,8 +304,7 @@
               "defaultValue": false
             }
           ]
-        }
-      ],
+        },
       "events": [
         "EndOfStream"
       ]
@@ -318,7 +313,7 @@
       "name": "RtpEndpoint",
       "extends": "SdpEndpoint",
       "doc": "Endpoint that provides bidirectional content delivery capabilities with remote networked peers through RTP protocol. An :rom:cls:`RtpEndpoint` contains paired sink and source :rom:cls:`MediaPad` for audio and video.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Builder for the :rom:cls:`RtpEndpoint`",
           "params": [
@@ -329,7 +324,6 @@
             }
           ]
         }
-      ]
     },
     {
       "name": "MediaPad",
@@ -370,7 +364,7 @@
       "name": "PointerDetectorFilter",
       "extends": "Filter",
       "doc": "This type of :rom:cls:`Filter` detects pointers in a video feed.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Builder for the :rom:cls:`PointerDetectorFilter`.",
           "params": [
@@ -386,8 +380,7 @@
               "optional": true
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "addWindow",
@@ -454,7 +447,7 @@
       "name": "ChromaFilter",
       "extends": "Filter",
       "doc": "ChromaFilter interface. This type of :rom:cls:`Filter` makes transparent a colour\nrange in the top layer, revealing another image behind",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`ChromaFilter`",
           "params": [
@@ -475,8 +468,7 @@
               "optional": true
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "setBackground",
@@ -500,13 +492,12 @@
       "name": "MediaPipeline",
       "extends": "MediaObject",
       "doc": "A pipeline is a container for a collection of :rom:cls:`MediaElements<MediaElement>` and :rom:cls:`MediaMixers<MediaMixer>`. It offers the methods needed to control the creation and connection of elements inside a certain pipeline.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`MediaPipeline`",
           "params": [
           ]
         }
-      ]
     },
     {
       "name": "MediaSink",
@@ -540,7 +531,7 @@
       "name": "Dispatcher",
       "doc": "A :rom:cls:`Hub` that allows routing between arbitrary port pairs",
       "extends": "Hub",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`Dispatcher` belonging to the given pipeline.",
           "params": [
@@ -550,8 +541,7 @@
               "type": "MediaPipeline"
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "connect",
@@ -575,7 +565,7 @@
       "name": "DispatcherOneToMany",
       "extends": "Hub",
       "doc": "A :rom:cls:`Hub` that sends a given source to all the connected sinks",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`DispatcherOneToMany` belonging to the given pipeline.",
           "params": [
@@ -585,8 +575,7 @@
               "type": "MediaPipeline"
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "setSource",
@@ -610,7 +599,7 @@
       "name": "Mixer",
       "doc": "A :rom:cls:`Hub` that allows routing of video between arbitrary port pairs and mixing of audio among several ports",
       "extends": "Hub",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`Mixer` belonging to the given pipeline.",
           "params": [
@@ -620,8 +609,7 @@
               "type": "MediaPipeline"
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "connect",
@@ -671,7 +659,7 @@
       "name": "Composite",
       "extends": "Hub",
       "doc": "A :rom:cls:`Hub` that mixes the :rom:attr:`MediaType.AUDIO` stream of its connected sources and constructs a grid with the :rom:attr:`MediaType.VIDEO` streams of its connected sources into its sink",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create for the given pipeline",
           "params": [
@@ -682,13 +670,12 @@
             }
           ]
         }
-      ]
     },
     {
       "name": "JackVaderFilter",
       "extends": "Filter",
       "doc": "Filter that detects faces in a video feed. Those on the right half of the feed are overlaid with a pirate hat, and those on the left half are covered by a Darth Vader helmet. This is an example filter, intended to demonstrate how to integrate computer vision capabilities into the multimedia infrastructure.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a new :rom:cls:`Filter`",
           "params": [
@@ -699,7 +686,6 @@
             }
           ]
         }
-      ]
     },
     {
       "name": "HttpEndpoint",
@@ -787,7 +773,7 @@
       "name": "FaceOverlayFilter",
       "extends": "Filter",
       "doc": "FaceOverlayFilter interface. This type of :rom:cls:`Filter` detects faces in a video feed. The face is then overlaid with an image.",
-      "constructors": [
+      "constructor":
         {
           "doc": "FaceOverlayFilter interface. This type of :rom:cls:`Filter` detects faces in a video feed. The face is then overlaid with an image.",
           "params": [
@@ -797,8 +783,7 @@
               "type": "MediaPipeline"
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "unsetOverlayedImage",
@@ -842,7 +827,7 @@
       "name": "PlateDetectorFilter",
       "extends": "Filter",
       "doc": "PlateDetectorFilter interface. This type of :rom:cls:`Endpoint` detects\nvehicle plates in a video feed.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`PlateDetectorFilter` for the given :rom:cls:`MediaPipeline`",
           "params": [
@@ -852,8 +837,7 @@
               "type": "MediaPipeline"
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "setPlateWidthPercentage",
@@ -875,7 +859,7 @@
       "name": "RecorderEndpoint",
       "extends": "UriEndpoint",
       "doc": "Provides function to store contents in reliable mode (doesn't discard data). It contains :rom:cls:`MediaSink` pads for audio and video.",
-      "constructors": [
+      "constructor":
         {
           "doc": "",
           "params": [
@@ -904,8 +888,7 @@
               "defaultValue": false
             }
           ]
-        }
-      ],
+        },
       "methods": [
         {
           "name": "record",
@@ -1062,7 +1045,7 @@
       "name": "GStreamerFilter",
       "extends": "Filter",
       "doc": "This is a generic filter interface, that creates GStreamer filters in the media server.",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`GStreamerFilter`",
           "params": [
@@ -1078,13 +1061,12 @@
             }
           ]
         }
-      ]
     },
     {
       "name": "CrowdDetectorFilter",
       "doc": "Filter that detects people agglomeration in video streams",
       "extends": "Filter",
-      "constructors": [
+      "constructor":
         {
           "doc": "Create a :rom:cls:`CrowdDetectorFilter`",
           "params": [
@@ -1099,8 +1081,7 @@
               "type": "RegionOfInterest[]"
             }
           ]
-        }
-      ],
+        },
       "events": [
         "CrowdDetectorFluidity",
         "CrowdDetectorOccupancy",
@@ -1203,7 +1184,7 @@
         }
       ],
       "name": "WindowParam",
-      "doc": "Parameter representing a window in a video stream.\nIt is used in command and constructors for media elements.\n\nAll units are in pixels, X runs from left to right, Y from top to bottom."
+      "doc": "Parameter representing a window in a video stream.\nIt is used in command and constructor for media elements.\n\nAll units are in pixels, X runs from left to right, Y from top to bottom."
     },
     {
       "typeFormat": "REGISTER",

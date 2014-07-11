@@ -25,6 +25,10 @@ namespace kurento {
 <#list remoteClassDependencies(remoteClass) as dependency>
 class ${dependency.name};
 </#list>
+class ${remoteClass.name};
+class JsonSerializer;
+
+void Serialize (std::shared_ptr<${remoteClass.name}> &object, JsonSerializer &serializer);
 
 class ${remoteClass.name}<#if remoteClass.extends??><#rt>
    <#lt> : public virtual ${remoteClass.extends.name}<#rt>
@@ -69,13 +73,13 @@ public:
 
     virtual MediaObject * createObjectPointer (const Json::Value &params);
 
-    <#list remoteClass.constructors as constructor><#rt>
+    <#if remoteClass.constructor??><#rt>
     MediaObject * createObject (<#rt>
-     <#lt><#list constructor.params as param><#rt>
+     <#lt><#list remoteClass.constructor.params as param><#rt>
         <#lt>${getCppObjectType(param.type, true)} ${param.name}<#rt>
         <#lt><#if param_has_next>, </#if><#rt>
      <#lt></#list>);
-    </#list>
+    </#if>
 
     class StaticConstructor
     {

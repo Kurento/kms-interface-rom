@@ -21,7 +21,7 @@ ENDIF(NOT EXISTS ${ROM_PROCESSOR_EXEC})
 MESSAGE(STATUS "Rom processor found: ${ROM_PROCESSOR_EXEC}")
 
 set(GEN_FILES_DIR ${CMAKE_BINARY_DIR}/rom-cpp)
-set(MODEL ${CMAKE_CURRENT_SOURCE_DIR}/model.json)
+set(MODEL ${CMAKE_CURRENT_SOURCE_DIR}/model.kmd.json)
 set(TEMPLATES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/templates/cpp)
 set(GENERATION_MARK ${CMAKE_CURRENT_BINARY_DIR}/code_generated)
 
@@ -34,7 +34,7 @@ file(GLOB_RECURSE TEMPLATES ${TEMPLATES_DIR}/*ftl)
 add_custom_target(generate ALL DEPENDS ${GENERATION_MARK})
 
 ADD_CUSTOM_COMMAND(
-        COMMENT         "Generating source from: model.json"
+        COMMENT         "Generating source from: model.kmd.json"
 
         DEPENDS         ${MODEL} ${TEMPLATES}
 

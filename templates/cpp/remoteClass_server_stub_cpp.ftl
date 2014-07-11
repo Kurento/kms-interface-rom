@@ -11,10 +11,10 @@ ${remoteClass.name}.cpp
 
 namespace kurento {
 
-<#if (!remoteClass.abstract) && (remoteClass.constructors[0])??>
+<#if (!remoteClass.abstract) && (remoteClass.constructor)??>
 MediaObject * ${remoteClass.name}::Factory::createObjectPointer (const Json::Value &params)
 {
-  <#list remoteClass.constructors[0].params as param>
+  <#list remoteClass.constructor.params as param>
   ${getCppObjectType(param.type, false)} ${param.name}<#rt>
     <#lt><#if param.type.name = "int"> = 0<#rt>
     <#lt><#elseif param.type.name = "boolean"> = false<#rt>
@@ -22,7 +22,7 @@ MediaObject * ${remoteClass.name}::Factory::createObjectPointer (const Json::Val
     <#lt></#if>;
   </#list>
 
-  <#list remoteClass.constructors[0].params as param>
+  <#list remoteClass.constructor.params as param>
   if (!params.isMember ("${param.name}")) {
     <#if (param.defaultValue)??>
     /* param '${param.name}' not present, using default */
@@ -57,7 +57,7 @@ MediaObject * ${remoteClass.name}::Factory::createObjectPointer (const Json::Val
 
   </#list>
   return createObject (<#rt>
-     <#lt><#list remoteClass.constructors[0].params as param><#rt>
+     <#lt><#list remoteClass.constructor.params as param><#rt>
         <#lt>${param.name}<#rt>
         <#lt><#if param_has_next>, </#if><#rt>
      <#lt></#list>);
