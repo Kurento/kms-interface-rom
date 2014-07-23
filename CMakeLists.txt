@@ -9,7 +9,7 @@ find_package(KurentoHelpers REQUIRED)
 
 include (KurentoGitHelpers)
 
-get_git_version (PROJECT_VERSION 4.3.5)
+get_git_version (PROJECT_VERSION 4.3.6-dev)
 
 
 find_program(ROM_PROCESSOR_EXEC ktool-rom-processor)
